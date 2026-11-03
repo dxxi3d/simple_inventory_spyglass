@@ -1,0 +1,47 @@
+plugins {
+    id 'java'
+}
+
+evaluationDependsOn(':common')
+
+dependencies {
+    implementation project(':common')
+    compileOnly "net.minecraftforge:forge:${project.forge_version}:universal"
+    compileOnly "net.minecraftforge:fmlloader:${project.forge_version}"
+    compileOnly "net.minecraftforge:javafmllanguage:${project.forge_version}"
+    compileOnly "net.minecraftforge:eventbus:7.0.6"
+    compileOnly "org.slf4j:slf4j-api:2.0.16"
+    compileOnly files(rootProject.project('common').configurations.named('compileClasspath'))
+}
+
+var replaceProperties = [
+    version: project.version,
+    minecraft_version: project.minecraft_version
+]
+
+processResources {
+    from project(':common').sourceSets.main.resources
+    inputs.properties replaceProperties
+    filteringCharset = "UTF-8"
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+
+    filesMatching("META-INF/mods.toml") {
+        expand replaceProperties
+    }
+}
+
+tasks.named('jar', Jar) {
+    manifest {
+        attributes([
+            'MixinConfigs': "${project.archives_base_name}.mixins.json"
+        ])
+    }
+}
+
+tasks.register('runClient') {
+    group = 'execution'
+    description = 'Forge client execution (LexForge on 26.3 requires manual client setup)'
+    doLast {
+        logger.lifecycle("LexForge 26.3 has no MDG/ForgeGradle plugin; NeoForge is the active FML loader for 26.3.")
+    }
+}

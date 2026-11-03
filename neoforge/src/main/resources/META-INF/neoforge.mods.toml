@@ -1,0 +1,32 @@
+modLoader = "javafml"
+loaderVersion = "[1,)"
+license = "ARR"
+
+[[mods]]
+modId = "simple_inventory_spyglass"
+version = "${version}"
+displayName = "Simple Inventory Spyglass"
+authors = "dxxi3d"
+description = "Allows using a spyglass directly from your inventory with a key press."
+iconFile = "assets/simple_inventory_spyglass/icon.png"
+displayURL = "https://github.com/dxxi3d/simple_inventory_spyglass"
+issueTrackerURL = "https://github.com/dxxi3d/simple_inventory_spyglass/issues"
+clientSideOnly = true
+displayTest = "IGNORE_SERVER_VERSION"
+
+[[mixins]]
+config = "simple_inventory_spyglass.mixins.json"
+
+[[dependencies.simple_inventory_spyglass]]
+modId = "neoforge"
+type = "required"
+versionRange = "[26.3.0.100,)"
+ordering = "NONE"
+side = "CLIENT"
+
+[[dependencies.simple_inventory_spyglass]]
+modId = "minecraft"
+type = "required"
+versionRange = "[26.3,)"
+ordering = "NONE"
+side = "CLIENT"

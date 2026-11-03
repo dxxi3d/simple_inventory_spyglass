@@ -1,0 +1,113 @@
+plugins {
+    id 'base'
+    id 'me.modmuss50.mod-publish-plugin' version '2.2.1'
+}
+
+allprojects {
+    group = project.maven_group
+    version = project.mod_version
+}
+
+subprojects {
+    apply plugin: 'java'
+
+    tasks.withType(JavaCompile).configureEach {
+        it.options.release = 25
+        it.options.encoding = 'UTF-8'
+    }
+
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(25)
+        }
+    }
+
+    repositories {
+        mavenCentral()
+        maven {
+            name = 'Fabric'
+            url = 'https://maven.fabricmc.net/'
+        }
+        maven {
+            name = 'NeoForged'
+            url = 'https://maven.neoforged.net/releases'
+        }
+        maven {
+            name = 'Mojang'
+            url = 'https://libraries.minecraft.net/'
+        }
+        maven {
+            name = 'Forge'
+            url = 'https://maven.minecraftforge.net/'
+        }
+    }
+}
+
+tasks.register('runClient') {
+    group = 'execution'
+    description = 'Runs the default client (Fabric)'
+    dependsOn ':fabric:runClient'
+}
+
+tasks.register('runClientFabric') {
+    dependsOn ':fabric:runClient'
+}
+
+tasks.register('runClientNeoForge') {
+    dependsOn ':neoforge:runClient'
+}
+
+tasks.register('runClientForge') {
+    dependsOn ':forge:runClient'
+}
+
+tasks.register('universalJar', Jar) {
+    dependsOn ':fabric:jar', ':neoforge:jar', ':forge:jar', ':common:jar'
+    archiveBaseName = project.archives_base_name
+    archiveClassifier = 'universal'
+    destinationDirectory = layout.buildDirectory.dir('libs')
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    manifest {
+        attributes([
+            'Specification-Title'     : project.archives_base_name,
+            'Specification-Vendor'    : 'dxxi3d',
+            'Specification-Version'   : '1',
+            'Implementation-Title'    : project.name,
+            'Implementation-Version'  : project.version,
+            'Implementation-Vendor'   : 'dxxi3d',
+            'Implementation-Timestamp': java.time.Instant.now().toString(),
+            'MixinConfigs'            : "${project.archives_base_name}.mixins.json",
+            'FMLModType'              : 'MOD'
+        ])
+    }
+
+    from project(':common').sourceSets.main.output
+    from project(':fabric').sourceSets.main.output
+    from project(':neoforge').sourceSets.main.output
+    from project(':forge').sourceSets.main.output
+}
+
+publishMods {
+    file = tasks.named('universalJar').flatMap { it.archiveFile }
+    displayName = "Simple Inventory Spyglass ${project.version}"
+    version = project.version.toString()
+    changelog = providers.gradleProperty('changelog').orElse(providers.environmentVariable('CHANGELOG')).orElse("Release ${project.version}")
+    type = STABLE
+    modLoaders.addAll('fabric', 'quilt', 'neoforge', 'forge')
+    dryRun = providers.gradleProperty('dryRun').map { it.toBoolean() }.orElse(false)
+
+    curseforge {
+        projectId = providers.provider { project.findProperty('curseforge_id') as String }
+        accessToken = providers.provider { (project.findProperty('curseforge_token') ?: System.getenv('CURSEFORGE_TOKEN')) as String }
+        minecraftVersions.add(project.minecraft_version)
+        client = true
+        server = false
+    }
+
+    modrinth {
+        projectId = providers.provider { project.findProperty('modrinth_id') as String }
+        accessToken = providers.provider { (project.findProperty('modrinth_token') ?: System.getenv('MODRINTH_TOKEN')) as String }
+        minecraftVersions.add(project.minecraft_version)
+    }
+}

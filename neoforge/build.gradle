@@ -1,0 +1,48 @@
+plugins {
+    id 'net.neoforged.moddev' version '2.0.148'
+}
+
+neoForge {
+    version = project.neoforge_version
+
+    runs {
+        client {
+            client()
+        }
+    }
+
+    mods {
+        "simple_inventory_spyglass" {
+            sourceSet sourceSets.main
+            sourceSet project(':common').sourceSets.main
+        }
+    }
+}
+
+tasks.configureEach { task ->
+    if (task.hasProperty('javaExecutable')) {
+        task.setProperty('javaExecutable', javaToolchains.launcherFor {
+            languageVersion = JavaLanguageVersion.of(25)
+        }.map { it.executablePath.asFile.absolutePath })
+    }
+}
+
+dependencies {
+    implementation project(':common')
+    compileOnly "org.slf4j:slf4j-api:2.0.16"
+}
+
+var replaceProperties = [
+    version: project.version,
+    minecraft_version: project.minecraft_version
+]
+
+processResources {
+    inputs.properties replaceProperties
+    filteringCharset = "UTF-8"
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+
+    filesMatching("META-INF/neoforge.mods.toml") {
+        expand replaceProperties
+    }
+}

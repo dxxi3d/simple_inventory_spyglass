@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "simple_inventory_spyglass",
+  "version": "${version}",
+  "name": "Simple Inventory Spyglass",
+  "description": "Allows using a spyglass directly from your inventory with a key press.",
+  "authors": [
+    "dxxi3d"
+  ],
+  "contact": {
+    "homepage": "https://curseforge.com/minecraft/mc-mods/inventory-spyglass",
+    "sources": "https://github.com/dxxi3d/simple_inventory_spyglass",
+    "issues": "https://github.com/dxxi3d/simple_inventory_spyglass/issues"
+  },
+  "license": "ARR",
+  "icon": "assets/simple_inventory_spyglass/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "dxxi3d.simple_inventory_spyglass.MainClientFabric"
+    ]
+  },
+  "mixins": [
+    "simple_inventory_spyglass.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "minecraft": "${minecraft_version}",
+    "fabric-key-mapping-api-v1": "*"
+  }
+}

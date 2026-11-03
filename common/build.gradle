@@ -1,0 +1,15 @@
+plugins {
+    id 'net.fabricmc.fabric-loom' version '1.19-SNAPSHOT'
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    compileOnly "net.fabricmc:fabric-loader:${project.loader_version}"
+    compileOnly "org.slf4j:slf4j-api:2.0.16"
+}
+
+afterEvaluate {
+    tasks.matching { it.name.startsWith('run') }.configureEach {
+        enabled = false
+    }
+}
