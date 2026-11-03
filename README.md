@@ -8,6 +8,10 @@ Allows using a spyglass directly from your inventory with a key press (default '
 
 * Requires Fabric API (Fabric only).
 
+## Download
+* [Modrinth](https://modrinth.com/mod/simple-inventory-spyglass)
+* [CurseForge](https://www.curseforge.com/minecraft/mc-mods/inventory-spyglass)
+
 ## Issues & Feedback
 If you encounter any bugs or have feature requests, please report them on the [GitHub Issue Tracker](https://github.com/dxxi3d/simple_inventory_spyglass/issues).
 
