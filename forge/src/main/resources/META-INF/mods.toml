@@ -1,6 +1,6 @@
 modLoader = "javafml"
 loaderVersion = "[66,)"
-license = "ARR"
+license = "All Rights Reserved"
 
 [[mods]]
 modId = "simple_inventory_spyglass"

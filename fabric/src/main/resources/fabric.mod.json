@@ -12,7 +12,7 @@
     "sources": "https://github.com/dxxi3d/simple_inventory_spyglass",
     "issues": "https://github.com/dxxi3d/simple_inventory_spyglass/issues"
   },
-  "license": "ARR",
+  "license": "All Rights Reserved",
   "icon": "assets/simple_inventory_spyglass/icon.png",
   "environment": "client",
   "entrypoints": {

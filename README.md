@@ -1,18 +1,11 @@
 # Simple Inventory Spyglass
 
-[![Minecraft](https://img.shields.io/badge/Minecraft-26.3-brightgreen.svg)](https://www.minecraft.net/)
-[![Fabric](https://img.shields.io/badge/Modloader-Fabric-blue.svg)](https://fabricmc.net/)
-[![NeoForge](https://img.shields.io/badge/Modloader-NeoForge-orange.svg)](https://neoforged.net/)
-[![Forge](https://img.shields.io/badge/Modloader-Forge-darkblue.svg)](https://files.minecraftforge.net/)
-[![Universal](https://img.shields.io/badge/JAR-Universal-purple.svg)](#)
-[![Side](https://img.shields.io/badge/Side-Client--Side-success.svg)](#)
-[![Java](https://img.shields.io/badge/Java-25%2B-orange.svg)](https://adoptium.net/)
-[![License](https://img.shields.io/badge/License-ARR%20(Modpacks%20Allowed)-blue.svg)](LICENSE)
-[![Issues](https://img.shields.io/github/issues/dxxi3d/simple_inventory_spyglass.svg)](https://github.com/dxxi3d/simple_inventory_spyglass/issues)
+![Minecraft](https://img.shields.io/badge/Minecraft-26.3-brightgreen)
+![ModLoader](https://img.shields.io/badge/ModLoader-Universal-purple)
+![Side](https://img.shields.io/badge/Side-CLIENT-blue)
 
 Allows using a spyglass directly from your inventory with a key press (default 'Z') without manual slot swapping.
 
-* Universal JAR for Fabric, NeoForge, and Forge.
 * Requires Fabric API (Fabric only).
 
 ## Issues & Feedback
